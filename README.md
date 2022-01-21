@@ -1,1 +1,2 @@
 Java maven project
+test
