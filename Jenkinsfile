@@ -34,5 +34,18 @@ pipeline {
                   }
               }
 
+
+     stage('run image') {
+                       steps {
+                           script {
+                               echo "running the docker image..."
+                                    sh "docker run -dp 8082:8080 --name javamvnapp ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
+
+
+                           }
+                       }
+                   }
+
+
     }
 }
