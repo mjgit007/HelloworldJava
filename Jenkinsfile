@@ -2,8 +2,8 @@ pipeline {
     agent any
      environment {
             DOCKER_REPO_SERVER = 'registry.digitalocean.com/myorgdockerrepo'
-            IMAGE_NAME=1.0
-            APPNAME='JAVAMVNAPP'
+            IMAGE_NAME = 1.0
+            APPNAME = 'JAVAMVNAPP'
         }
 
 
@@ -26,9 +26,9 @@ pipeline {
                       script {
                           echo "building the docker image..."
                           withCredentials([usernamePassword(credentialsId: 'digi_docker_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                              sh "docker build -t ${DOCKER_REPO}/${APPNAME}:${IMAGE_NAME} ."
+                              sh "docker build -t ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME} ."
                               sh "echo $PASS | docker login -u $USER --password-stdin ${DOCKER_REPO_SERVER}"
-                              sh "docker push ${DOCKER_REPO}/${APPNAME}:${IMAGE_NAME}"
+                              sh "docker push ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
                           }
                       }
                   }
