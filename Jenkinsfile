@@ -3,7 +3,7 @@ pipeline {
      environment {
             DOCKER_REPO_SERVER = 'registry.digitalocean.com/myorgdockerrepo'
             IMAGE_NAME = 1.0
-            APPNAME = 'JAVAMVNAPP'
+            APPNAME = 'javamvnapp'
         }
 
 
