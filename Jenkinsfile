@@ -24,12 +24,14 @@ pipeline {
             }
         }
 
+
+
       stage('build image') {
                   steps {
                       script {
-                           buildImage ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}
+                           buildImage "${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
                            dockerLogin ()
-                           dockerPush ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}
+                           dockerPush "${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
                       }
                   }
               }
