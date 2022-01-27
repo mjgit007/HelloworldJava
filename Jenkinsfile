@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-@Library('docker-shared-library@main') _
+@Library('docker-shared-library@main')_
 
 pipeline {
     agent any
