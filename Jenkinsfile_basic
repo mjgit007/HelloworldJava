@@ -1,10 +1,7 @@
-#!/usr/bin/env groovy
-@Library('docker-shared-library@main') _
-
 pipeline {
     agent any
      environment {
-            DOCKER_REPO_SERVER = 'registry-1.docker.io/mjdockerrepo'
+            DOCKER_REPO_SERVER = 'registry.digitalocean.com/myorgdockerrepo'
             IMAGE_NAME = 1.0
             APPNAME = 'javamvnapp'
         }
@@ -27,11 +24,12 @@ pipeline {
       stage('build image') {
                   steps {
                       script {
-
-                           buildImage ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}
-                           dockerLogin ()
-                           dockerPush ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}
-
+                          echo "building the docker image..."
+                          withCredentials([usernamePassword(credentialsId: 'digi_docker_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                              sh "docker build -t ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME} ."
+                              sh "echo $PASS | docker login -u $USER --password-stdin ${DOCKER_REPO_SERVER}"
+                              sh "docker push ${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
+                          }
                       }
                   }
               }
