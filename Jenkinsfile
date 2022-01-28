@@ -4,7 +4,7 @@
 pipeline {
     agent any
      environment {
-            DOCKER_REPO_SERVER = 'registry-1.docker.io/mjdockerrepo'
+            DOCKER_REPO_SERVER = 'mjdockerrepo'
             IMAGE_NAME = 1.0
             APPNAME = 'javamvnapp'
         }
@@ -30,7 +30,7 @@ pipeline {
                   steps {
                       script {
                            buildImage "${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
-                           dockerLogin ()
+                           dockerLogin "${DOCKER_REPO_SERVER}"
                            dockerPush "${DOCKER_REPO_SERVER}/${APPNAME}:${IMAGE_NAME}"
                       }
                   }
